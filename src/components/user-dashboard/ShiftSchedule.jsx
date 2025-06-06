@@ -77,7 +77,7 @@ const ShiftSchedule = ({
   // Fetch shift types
   const fetchShiftTypes = useCallback(async () => {
     try {
-      const response = await axios.get`${import.meta.env.VITE_API_URL}/api/shift-types`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/shift-types`);
       setShiftTypes(response.data);
     } catch (error) {
       console.error('Error fetching shift types:', error);
