@@ -84,9 +84,9 @@ const ShiftSwapRequests = ({ userId, isAdmin = false }) => {
     try {
       setLoading(true);
       const [shiftsResponse, colleaguesResponse, requestsResponse] = await Promise.all([
-        axios.get(`http://localhost:5000/api/users/${userId}/shifts`),
-        axios.get('http://localhost:5000/api/users'),
-        axios.get('http://localhost:5000/api/shift-swap-requests')
+        axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}/shifts`),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/users`),
+        axios.get(`${import.meta.env.VITE_API_URL}/api/shift-swap-requests`)
       ]);
 
       setUserShifts(shiftsResponse.data);
@@ -108,7 +108,7 @@ const ShiftSwapRequests = ({ userId, isAdmin = false }) => {
   const fetchColleagueShifts = useCallback(async (colleagueId) => {
     if (!colleagueId) return;
     try {
-      const response = await axios.get(`http://localhost:5000/api/users/${colleagueId}/shifts`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${colleagueId}/shifts`);
       setColleagueShifts(response.data);
     } catch (error) {
       console.error('Error fetching colleague shifts:', error);
@@ -141,7 +141,7 @@ const ShiftSwapRequests = ({ userId, isAdmin = false }) => {
         status: 'Pending'
       };
 
-      await axios.post('http://localhost:5000/api/shift-swap-requests', swapRequestData);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/shift-swap-requests`, swapRequestData);
       setOpenDialog(false);
       setFormData({
         shiftToSwap: '',
@@ -158,7 +158,7 @@ const ShiftSwapRequests = ({ userId, isAdmin = false }) => {
 
   const handleStatusUpdate = async (requestId, newStatus) => {
     try {
-      await axios.put(`http://localhost:5000/api/shift-swap-requests/${requestId}`, { status: newStatus });
+      await axios.put(`${import.meta.env.VITE_API_URL}/api/shift-swap-requests/${requestId}`, { status: newStatus });
       fetchInitialData(); // Refresh all data
     } catch (error) {
       console.error('Error updating swap request status:', error);

@@ -55,7 +55,7 @@ const OvertimeRequest = () => {
 
     try {
       console.log('Fetching shifts for user:', userId);
-      const response = await axios.get(`http://localhost:5000/api/users/${userId}/shifts`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}/shifts`);
       console.log('Raw API response:', response);
       console.log('All shifts from API:', response.data);
       
@@ -132,7 +132,7 @@ const OvertimeRequest = () => {
 
   const fetchOvertimeRequests = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/overtime/user/${userId}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/overtime/user/${userId}`);
       setRequests(response.data);
     } catch (error) {
       console.error('Error fetching overtime requests:', error);
@@ -159,7 +159,7 @@ const OvertimeRequest = () => {
         return;
       }
 
-      await axios.post('http://localhost:5000/api/overtime', {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/overtime`, {
         userid: userId,
         shiftid: selectedShift,
         reason: reason

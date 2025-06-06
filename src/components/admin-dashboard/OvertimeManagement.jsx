@@ -38,7 +38,7 @@ const OvertimeManagement = () => {
 
   const fetchOvertimeRequests = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/overtime');
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/overtime`);
       setRequests(response.data);
     } catch (error) {
       console.error('Error fetching overtime requests:', error);
@@ -68,7 +68,7 @@ const OvertimeManagement = () => {
       }
 
       await axios.put(
-        `http://localhost:5000/api/overtime/${selectedRequest.requestid}/status`,
+        `${import.meta.env.VITE_API_URL}/api/overtime/${selectedRequest.requestid}/status`,
         { status }
       );
 

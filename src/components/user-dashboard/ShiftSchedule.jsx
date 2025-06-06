@@ -77,7 +77,7 @@ const ShiftSchedule = ({
   // Fetch shift types
   const fetchShiftTypes = useCallback(async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/shift-types');
+      const response = await axios.get`${import.meta.env.VITE_API_URL}/api/shift-types`);
       setShiftTypes(response.data);
     } catch (error) {
       console.error('Error fetching shift types:', error);
@@ -93,7 +93,7 @@ const ShiftSchedule = ({
   const fetchShifts = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`http://localhost:5000/api/users/${userId}/shifts`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users/${userId}/shifts`);
       console.log('Raw shift data from API:', response.data);
       
       const transformedShifts = response.data.map(shift => {
@@ -203,7 +203,7 @@ const ShiftSchedule = ({
     
     try {
       console.log('Confirming deletion of shift:', deletingShiftId);
-      const response = await axios.delete(`http://localhost:5000/api/shifts/${deletingShiftId}`);
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/shifts/${deletingShiftId}`);
       console.log('Delete response:', response.data);
       
       // Refresh the shifts list after successful deletion
@@ -287,7 +287,7 @@ const ShiftSchedule = ({
         // Only make the API call if there are changes
         if (Object.keys(updatedData).length > 0) {
           const response = await axios.put(
-            `http://localhost:5000/api/shifts/${editingShift.shiftid}`,
+            `${import.meta.env.VITE_API_URL}/api/shifts/${editingShift.shiftid}`,
             updatedData
           );
           console.log('Update response:', response.data);
@@ -297,7 +297,7 @@ const ShiftSchedule = ({
       } else {
         // For new shifts, send all data
         const response = await axios.post(
-          `http://localhost:5000/api/users/${userId}/shifts`,
+          `${import.meta.env.VITE_API_URL}/api/users/${userId}/shifts`,
           shiftData
         );
         console.log('Create response:', response.data);

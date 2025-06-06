@@ -258,7 +258,7 @@ const UserManagement = () => {
     const fetchUsers = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/users', {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/users`, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -291,7 +291,7 @@ const UserManagement = () => {
   useEffect(() => {
     const fetchShiftTypes = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/shift-types');
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/shift-types`);
         setShiftTypes(response.data);
       } catch (err) {
         console.error('Error fetching shift types:', err);
@@ -328,7 +328,7 @@ const UserManagement = () => {
 
   const confirmDelete = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/users/${deletingUserId}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/users/${deletingUserId}`);
       setUsers(users.filter((user) => user.userid !== deletingUserId));
       
       // Clear delete state and close modal
@@ -363,7 +363,7 @@ const UserManagement = () => {
 
   const confirmDeleteShift = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/shifts/${deletingShiftId}`);
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/shifts/${deletingShiftId}`);
       // Refresh the calendar by forcing a re-render
       if (selectedUserId) {
         const currentUser = selectedUserId;
@@ -400,12 +400,12 @@ const UserManagement = () => {
       let response;
       if (editingShift) {
         response = await axios.put(
-          `http://localhost:5000/api/shifts/${editingShift.shiftid}`,
+          `${import.meta.env.VITE_API_URL}/api/shifts/${editingShift.shiftid}`,
           shiftData
         );
       } else {
         response = await axios.post(
-          `http://localhost:5000/api/users/${selectedUserId}/shifts`,
+          `${import.meta.env.VITE_API_URL}/api/users/${selectedUserId}/shifts`,
           shiftData
         );
       }
@@ -464,14 +464,14 @@ const UserManagement = () => {
       let response;
       if (editingUser) {
         response = await axios.put(
-          `http://localhost:5000/api/users/${editingUser.userid}`,
+          `${import.meta.env.VITE_API_URL}/api/users/${editingUser.userid}`,
           payload
         );
         setUsers(users.map((user) => 
           user.userid === editingUser.userid ? response.data : user
         ));
       } else {
-        response = await axios.post("http://localhost:5000/api/users", payload);
+        response = await axios.post(`${import.meta.env.VITE_API_URL}/api/users`, payload);
         setUsers([...users, response.data]);
       }
 

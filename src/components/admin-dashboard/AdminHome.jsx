@@ -73,7 +73,7 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     // Fetch count of users
-    fetch("http://localhost:5000/api/users")
+    fetch(`${import.meta.env.VITE_API_URL}/api/users`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
       .catch((err) => console.error("Error fetching users:", err));
 
     // Fetch pending requests
-    fetch("http://localhost:5000/api/shift-swap-requests")
+    fetch(`${import.meta.env.VITE_API_URL}/api/shift-swap-requests`)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

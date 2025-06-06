@@ -90,9 +90,9 @@ const SwapRequests = ({ isAgent = false }) => {
         throw new Error('No user information found');
       }
 
-      let url = 'http://localhost:5000/api/shift-swap-requests';
+      let url = `${import.meta.env.VITE_API_URL}/api/shift-swap-requests`;
       if (isAgent && user) {
-        url = `http://localhost:5000/api/shift-swap-requests/user/${user.userid}`;
+        url = `${import.meta.env.VITE_API_URL}/api/shift-swap-requests/user/${user.userid}`;
       }
 
       const response = await axios.get(url, {
@@ -135,7 +135,7 @@ const SwapRequests = ({ isAgent = false }) => {
       console.log('Processing swap request:', selectedRequest);
 
       // Update the swap request status - this will trigger the backend's updateRequestStatus function
-      const response = await axios.put(`http://localhost:5000/api/shift-swap-requests/${selectedRequest.id}`, {
+      const response = await axios.put(`${import.meta.env.VITE_API_URL}/api/shift-swap-requests/${selectedRequest.id}`, {
         status: actionType
       });
 

@@ -111,29 +111,25 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         emailaddress: email,
         password,
       });
       
       if (response.data.token && response.data.user) {
-        // Log the response to see the structure
+
         console.log('Login response:', response.data);
         
-        // Ensure we have the correct user ID property
         const userData = {
           ...response.data.user,
           userid: response.data.user.userid || response.data.user.userId || response.data.user.id // Handle different possible ID property names
         };
         
-        // Store authentication data
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(userData));
         
-        // Update user context with the normalized user data
         login(userData);
         
-        // Determine redirect path based on role
         const dashboardPath = userData.role === 'Admin' 
           ? "/admin-dashboard" 
           : "/user-dashboard";
